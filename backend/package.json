@@ -4,8 +4,7 @@
   "description": "",
   "main": "server.js",
   "type": "module",
-
- "scripts": {
+  "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
@@ -15,7 +14,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
-    "express": "^5.1.0",
+    "express": "^4.22.1",
     "mongoose": "^9.0.0"
   }
 }
