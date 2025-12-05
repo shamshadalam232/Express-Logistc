@@ -5,6 +5,11 @@ import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import path from "path"
+import { fileURLToPath } from "url";
+
+// Create __dirname for ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // env load
 dotenv.config();
 
@@ -37,5 +42,5 @@ if(process.env.NODE_ENV==="production"){
 
 // start server
 const PORT = process.env.PORT || 5000;
-const __dirname = path.resolve();
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
