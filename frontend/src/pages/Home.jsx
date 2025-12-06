@@ -24,8 +24,7 @@ export default function Home() {
           </Modal>
 
           <div className="mt-10">
-            <img
-              src="/src/assets/photo1.jpg"
+            <img src="/photo1.jpg"
               alt="Delivery Rider"
               className="w-full rounded-2xl object-cover h-80"
             />
@@ -77,7 +76,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 px-4">
             <div>
               <img
-                src="/src/assets/photo2.jpg"
+                src="/photo2.jpg"
                 alt="Delivery Rider"
                 className="w-full rounded-2xl object-cover h-80"
               />
@@ -151,7 +150,7 @@ export default function Home() {
           
             <div>
               <img
-                src="/src/assets/photo3.jpg"
+                src="/photo3.jpg"
                 alt="Delivery Rider"
                 className="w-full rounded-2xl object-cover h-80"
               />

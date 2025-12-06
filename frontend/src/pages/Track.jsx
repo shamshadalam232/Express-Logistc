@@ -87,7 +87,7 @@ export default function Track() {
 
     <div className="max-w-full mx-auto p-5 pt-10">
       <img
-      src="/src/assets/photo7.png"
+      src="/photo7.png"
       />
     </div>
     </>

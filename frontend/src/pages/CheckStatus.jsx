@@ -86,7 +86,7 @@ export default function CheckStatus() {
 
     <div className="max-w-screen rounded-md mx-auto p-5 pt-10">
       <img 
-       src="src/assets/photo6.png"
+       src="/photo6.png"
       />
     </div>
 
