@@ -29,9 +29,7 @@ app.use(express.json());
 connectDB();
 
 //test route
-app.get("/", (req, res) => {
-    res.send("backend is running ...");
-})
+
 
 app.use("/api/user", userRoutes);
 app.use("/api/admin", adminRoutes);
