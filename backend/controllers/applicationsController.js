@@ -1,4 +1,6 @@
- import Application from "../models/applications.js";
+import Application from "../models/applications.js";
+import { sendMail } from "../utils/sendMail.js";
+
 
 // POST : user apply
 export const applyApplications = async (req, res) => {
@@ -35,25 +37,42 @@ export const getApplications = async (req, res) => {
 
 export const approveApplication = async (req, res) => {
   try {
+    
     const { id } = req.params;
 
     const approvalNumber =
       "VAL-APP-" + Math.floor(100000 + Math.random() * 900000);
-
     const updated = await Application.findByIdAndUpdate(
       id,
       { status: "Approved", approvalNumber },
       { new: true }
     );
 
+
     if (!updated)
       return res.status(404).json({ message: "Application not found" });
+
+    await sendMail({
+      to: updated.email,
+      subject: "Your Application has been Approved",
+      html: `
+        <h2>Hello ${updated.fullName},</h2>
+        <p>Your application has been <b>approved</b>.</p>
+        <p><b>Approval Number:</b> ${approvalNumber}</p>
+
+        <p style="margin-top:20px;">You can now check your status anytime using the approval number.</p>
+
+        <br/>
+        <p>Regards,<br/>Express Logistic Team</p>
+      `,
+    });
 
     res.json({
       message: "Application Approved",
       application: updated,
     });
   } catch (err) {
+     console.error("❌ APPROVE ROUTE ERROR:", err);
     res.status(500).json({ message: err.message });
   }
 };
