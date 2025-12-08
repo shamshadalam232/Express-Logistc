@@ -1,8 +1,13 @@
 import { useState } from "react";
-import logo from "/photo5.jpg"; // <-- your logo
+import { useLocation } from "react-router-dom";
+import logo from "/photo5.jpg";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  // 👇 Check if page is admin route
+  const isAdminPage = location.pathname.startsWith("/admin");
 
   return (
     <nav className="bg-[#022a63] fixed w-full top-0 z-50 shadow">
@@ -45,7 +50,19 @@ export default function Navbar() {
           <li><a href="/status" className="hover:text-blue-300">Check Status</a></li>
           <li><a href="/track" className="hover:text-blue-300">Track Order</a></li>
           <li><a href="/about" className="hover:text-blue-300">About</a></li>
-          <li><a href="https://mail.zoho.in/signup?type=org&plan=newMail5gb" className="hover:text-blue-300" onClick={() => setOpen(false)}>Webmail</a></li>
+
+          {/* ⭐ Webmail only for admin routes */}
+          {isAdminPage && (
+            <li>
+              <a 
+                href="https://mail.zoho.in/zm/#mail/folder/inbox" 
+                target="_blank"
+                className="hover:text-blue-300"
+              >
+                Webmail
+              </a>
+            </li>
+          )}
         </ul>
 
       </div>
@@ -59,7 +76,19 @@ export default function Navbar() {
             <li><a href="/track" onClick={() => setOpen(false)}>Track Order</a></li>
             <li><a href="/about" onClick={() => setOpen(false)}>About</a></li>
             <li><a href="/contact" onClick={() => setOpen(false)}>Contact Us</a></li>
-            <li><a href="https://mail.zoho.in/signup?type=org&plan=newMail5gb" onClick={() => setOpen(false)}>Webmail</a></li>
+
+            {/* ⭐ Webmail only inside mobile menu for admin pages */}
+            {isAdminPage && (
+              <li>
+                <a 
+                  href="https://mail.zoho.in/zm/#mail/folder/inbox"
+                  target="_blank"
+                  onClick={() => setOpen(false)}
+                >
+                  Webmail
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       )}
