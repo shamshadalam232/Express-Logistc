@@ -17,14 +17,14 @@ export default function Home() {
             className="bg-white text-blue-900 font-medium px-6 py-2 rounded mt-2 hover:bg-gray-400 transition"
             onClick={() => setOpen(true)}
           >
-            Join Us
+            Apply Now
           </button>
           <Modal open={open} onClose={() => setOpen(false)}>
             <JoinForm onClose={() => setOpen(false)} />
           </Modal>
 
           <div className="mt-10">
-            <img src="/photo1.jpg"
+            <img src="/moto.jpg"
               alt="Delivery Rider"
               className="w-full rounded-2xl object-cover h-80"
             />
@@ -76,13 +76,13 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 px-4">
             <div>
               <img
-                src="/photo2.jpg"
+                src="/man.jpg"
                 alt="Delivery Rider"
                 className="w-full rounded-2xl object-cover h-80"
               />
             </div>
 
-            <div className="bg-white-200 p-6 rounded-xl shadow h-80">
+            <div className="bg-white-200 p-6 rounded-xl shadow h-85">
               <div className="text-black">
                 <h1 className="text-center text-2xl font-semibold mt-3 px-3 mb-3">
                   Become a part of our delivery team
@@ -110,7 +110,7 @@ export default function Home() {
                   className="bg-blue-800 text-blue-100 font-medium px-6 py-2 rounded mt-2 hover:bg-gray-400 transition"
                   onClick={() => setOpen(true)}
                 >
-                  Join Us
+                  Apply Now
                 </button>
               </div>
             </div>
@@ -121,7 +121,7 @@ export default function Home() {
       <div className="w-full bg-white text-white py-7">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 px-4">
-           <div className="bg-white-200 p-6 rounded-xl shadow h-80">
+           <div className="bg-white-200 p-6 rounded-xl shadow h-85">
               <div className="text-black">
                 <h1 className="text-center text-2xl font-semibold mt-3 px-3 mb-3">
                   Become a part of our delivery team
@@ -143,14 +143,14 @@ export default function Home() {
                   className="bg-blue-800 text-blue-100 font-medium px-6 py-2 rounded mt-2 hover:bg-gray-400 transition text-center"
                   onClick={() => setOpen(true)}
                 >
-                  Join Us
+                  Apply Now
                 </button>
               </div>
             </div>
           
             <div>
               <img
-                src="/photo3.jpg"
+                src="/group.jpg"
                 alt="Delivery Rider"
                 className="w-full rounded-2xl object-cover h-80"
               />

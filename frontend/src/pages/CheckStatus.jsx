@@ -84,9 +84,9 @@ export default function CheckStatus() {
       )}
     </div>
 
-    <div className="max-w-screen rounded-md mx-auto p-5 pt-10">
+    <div className="max-w-screen rounded-md mx-auto pt-10">
       <img 
-       src="/photo6.png"
+       src="/bus.jpg"
       />
     </div>
 
