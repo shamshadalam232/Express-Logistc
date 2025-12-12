@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import logo from "/photo5.jpg";
+import logo from "/logo1.jpg";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
