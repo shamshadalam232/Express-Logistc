@@ -26,7 +26,7 @@ export default function Home() {
           <div className="mt-10">
             <img src="/moto.jpg"
               alt="Delivery Rider"
-              className="w-full rounded-2xl object-cover h-80"
+              className="w-full rounded-2xl object-cover h-85"
             />
           </div>
         </div>
