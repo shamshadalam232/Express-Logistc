@@ -108,17 +108,17 @@ export default function AdminShipments() {
             onChange={(e) => setForm({ ...form, mobile: e.target.value })}
           />
 
-          <input className="border p-2 rounded" placeholder="Pickup Address"
+          <input className="border p-2 rounded" placeholder="Establish date"
             value={form.pickupAddress || ""}
             onChange={(e) => setForm({ ...form, pickupAddress: e.target.value })}
           />
 
-          <input className="border p-2 rounded" placeholder="Delivery Address"
+          <input className="border p-2 rounded" placeholder="End Date"
             value={form.deliveryAddress || ""}
             onChange={(e) => setForm({ ...form, deliveryAddress: e.target.value })}
           />
 
-          <input className="border p-2 rounded" placeholder="Product Details"
+          <input className="border p-2 rounded" placeholder="Status"
             value={form.productDetails || ""}
             onChange={(e) => setForm({ ...form, productDetails: e.target.value })}
           />
