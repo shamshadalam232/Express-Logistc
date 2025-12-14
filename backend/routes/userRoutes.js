@@ -12,4 +12,5 @@ router.post("/apply", applyApplications);
 router.post("/checkapplication", checkApplicationStatus)
 
 
+
 export default router;
