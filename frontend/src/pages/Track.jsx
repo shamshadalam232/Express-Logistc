@@ -85,9 +85,10 @@ export default function Track() {
       )}
     </div>
 
-    <div className="max-w-full mx-auto p-5 pt-10">
+    <div className="max-w-full mx-auto pt-10">
       <img
       src="/bus.jpg"
+      className="w-full rounded-2xl object-cover h-85"
       />
     </div>
     </>

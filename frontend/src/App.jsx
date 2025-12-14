@@ -11,6 +11,7 @@ import { useState } from "react";
 import Footer from "./Footer.jsx"
 import AdminApplications from "./admin/AdminApplication.jsx";
 import AdminShipments from "./admin/AdminShipment.jsx";
+import StatusDashboard from "./pages/StatusDashboard.jsx";
 //import './App.css'
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
         <Route path="/track" element={<Track />} />
         <Route path="/status" element={<CheckStatus />} />
         <Route path="/about" element={<About />} />
-
+        <Route path="/status/dashboard" element={<StatusDashboard />} />
         {/* ADMIN (Hidden) */}
         <Route path="/admin/applications" element={< AdminApplications />} />
         <Route path="/admin/shipments" element={< AdminShipments /> } />
