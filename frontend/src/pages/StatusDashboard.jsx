@@ -117,7 +117,7 @@ export default function StatusDashboard() {
 
         <a
           onClick={() =>
-            window.location.href = `http://localhost:5000${data.approvalPdf}`
+            window.location.href = `${import.meta.env.VITE_API_URL}${data.approvalPdf}`
           }
           target="_blank"
           rel="noopener noreferrer"
@@ -137,7 +137,7 @@ export default function StatusDashboard() {
         {/* PDF */}
         <a
          onClick={() =>
-            window.location.href = `http://localhost:5000${data.approvalPdf}`
+              window.location.href = `${import.meta.env.VITE_API_URL}${data.approvalPdf}`
           }
           className="inline-block mt-6 bg-yellow-500 text-white px-5 py-2 rounded"
         >
