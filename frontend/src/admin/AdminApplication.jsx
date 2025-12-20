@@ -18,8 +18,8 @@ export default function AdminApplications() {
 
   useEffect(() => {
     const fetchData = async () => {
-       await loadData();
-    }
+      await loadData();
+    };
     fetchData();
   }, []);
 
@@ -35,16 +35,12 @@ export default function AdminApplications() {
     const formData = new FormData();
     formData.append("pdf", selectedPdf);
 
-    await api.patch(
-      `/admin/applications/${id}/approve`,
-      formData,
-      {
-        headers: {
-          "admin-key": "12345",
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    await api.patch(`/admin/applications/${id}/approve`, formData, {
+      headers: {
+        "admin-key": "12345",
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
     setSelectedPdf(null);
     setActiveId(null);
@@ -105,9 +101,7 @@ export default function AdminApplications() {
                 <td className="p-3">{app.fullName}</td>
                 <td className="p-3">{app.mobile}</td>
                 <td className="p-3">{app.city}</td>
-                <td className="p-3">
-                  {app.approvalNumber || "Not Generated"}
-                </td>
+                <td className="p-3">{app.approvalNumber || "Not Generated"}</td>
                 <td className="p-3">{app.franchiseType}</td>
 
                 <td className="p-3">
@@ -125,7 +119,6 @@ export default function AdminApplications() {
                 </td>
 
                 <td className="p-3 space-y-2">
-
                   {/* Pending → Approve with PDF */}
                   {app.status === "Pending" && (
                     <>
@@ -159,7 +152,7 @@ export default function AdminApplications() {
                   {/* Approved → show PDF */}
                   {app.status === "Approved" && app.approvalPdf && (
                     <a
-                      href={app.approvalPdf}
+                      href={`http://localhost:5000${app.approvalPdf}`}
                       target="_blank"
                       className="block text-blue-600 underline text-sm"
                     >
@@ -173,7 +166,6 @@ export default function AdminApplications() {
                   >
                     Delete
                   </button>
-
                 </td>
               </tr>
             ))}
