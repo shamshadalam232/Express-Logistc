@@ -152,7 +152,7 @@ export default function AdminApplications() {
                   {/* Approved → show PDF */}
                   {app.status === "Approved" && app.approvalPdf && (
                     <a
-                      href={`http://localhost:5000${app.approvalPdf}`}
+                      href={`${import.meta.env.VITE_API_URL}${app.approvalPdf}`}
                       target="_blank"
                       className="block text-blue-600 underline text-sm"
                     >
