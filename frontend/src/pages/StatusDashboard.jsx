@@ -32,8 +32,10 @@ export default function StatusDashboard() {
       
       // Fix localhost URLs to production
       if (pdfUrl.includes('localhost')) {
-        pdfUrl = pdfUrl.replace('http://localhost:5000', 'https://expresslogistic.shop');
-        pdfUrl = pdfUrl.replace('http://localhost:5173', 'https://expresslogistic.shop');
+        const cloudinaryMatch = pdfUrl.match(/(https:\/\/res\.cloudinary\.com\/[^\s]+)/);
+        if (cloudinaryMatch) {
+          pdfUrl = cloudinaryMatch[1];
+        }
       }
       
       // For mobile compatibility - use Google Docs Viewer or direct link
