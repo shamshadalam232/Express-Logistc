@@ -43,7 +43,7 @@ export const approveApplication = async (req, res) => {
     const { id } = req.params;
 
     console.log("🔍 Approve request received for ID:", id);
-    console.log("📁 req.file:", req.file);
+    
 
     const application = await Application.findById(id);
     if (!application) {
@@ -60,12 +60,7 @@ export const approveApplication = async (req, res) => {
     console.log("   - Path:", req.file.path);
     console.log("   - Size:", req.file.size);
 
-    // Check if file actually exists
-    if (fs.existsSync(req.file.path)) {
-      console.log("✅ File exists on disk");
-    } else {
-      console.log("❌ File NOT found on disk!");
-    }
+   
 
     const approvalNumber =
       "VAL-APP-" + Math.floor(100000 + Math.random() * 900000);
@@ -74,7 +69,7 @@ export const approveApplication = async (req, res) => {
     application.approvalNumber = approvalNumber;
     
     // Construct PDF URL
-    application.approvalPdf = `${process.env.APP_URL}/uploads/approval/${req.file.filename}`;
+    application.approvalPdf = req.file.path;
 
     console.log("🔗 PDF URL:", application.approvalPdf);
 
@@ -92,7 +87,7 @@ export const approveApplication = async (req, res) => {
             <h2>Hello ${application.fullName},</h2>
             <p>Your application has been <b>approved</b>.</p>
             <p><b>Approval Number:</b> ${approvalNumber}</p>
-            <p>Download your approval PDF: <a href="${application.approvalPdf}">Click Here</a></p>
+            
             <p>You can check your status anytime using this approval number.</p>
 
             <br/>

@@ -3,7 +3,7 @@ import { adminProtect } from "../middleware/adminProtect.js";
 import { approveApplication } from "../controllers/applicationsController.js";
 import { getAllShipments, addShipment, updateShipment, deleteShipment } from "../controllers/shipmentController.js";
 import { getApplications, rejectApplication, deleteApplication} from "../controllers/applicationsController.js";
-import  uploadPdf from "../middleware/uploadPdf.js";
+import  { uploadPdfToCloud } from "../config/cloudinary.js";
 
 
 
@@ -24,9 +24,10 @@ router.delete("/applications/:id",adminProtect, deleteApplication);
 //pdf upload 
 
 router.patch(
-  "/applications/:id/approve",
-  uploadPdf.single("pdf"),
-   adminProtect, approveApplication,
+ "/applications/:id/approve",
+  uploadPdfToCloud.single("pdf"),
+  adminProtect,
+  approveApplication
 );
 
 export default router;

@@ -14,7 +14,7 @@ const __dirname = path.dirname(__filename);
 // env load
 dotenv.config();
 
-const BASE_URL = process.env.APP_URL || "http://localhost:5000";
+
 
 //app create
 const app = express();
@@ -33,7 +33,7 @@ app.use(express.json());
 connectDB();
 
 // ✅ CRITICAL: Static files PEHLE serve karo (uploads folder)
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
 
 // ✅ API routes
 app.use("/api/user", userRoutes);
