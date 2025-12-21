@@ -1,5 +1,7 @@
 import Application from "../models/applications.js";
 import { sendMail } from "../utils/sendMail.js";
+import path from "path";
+import fs from "fs";
 
 // POST : user apply
 export const applyApplications = async (req, res) => {
@@ -40,13 +42,29 @@ export const approveApplication = async (req, res) => {
   try {
     const { id } = req.params;
 
+    console.log("🔍 Approve request received for ID:", id);
+    console.log("📁 req.file:", req.file);
+
     const application = await Application.findById(id);
     if (!application) {
       return res.status(404).json({ message: "Application not found" });
     }
 
     if (!req.file) {
+      console.log("❌ No file uploaded");
       return res.status(400).json({ message: "Approval PDF is required" });
+    }
+
+    console.log("✅ File received:");
+    console.log("   - Filename:", req.file.filename);
+    console.log("   - Path:", req.file.path);
+    console.log("   - Size:", req.file.size);
+
+    // Check if file actually exists
+    if (fs.existsSync(req.file.path)) {
+      console.log("✅ File exists on disk");
+    } else {
+      console.log("❌ File NOT found on disk!");
     }
 
     const approvalNumber =
@@ -54,25 +72,38 @@ export const approveApplication = async (req, res) => {
 
     application.status = "Approved";
     application.approvalNumber = approvalNumber;
-    application.approvalPdf = `/uploads/approval/${req.params.id}.pdf`;
+    
+    // Construct PDF URL
+    application.approvalPdf = `${process.env.APP_URL}/uploads/approval/${req.file.filename}`;
+
+    console.log("🔗 PDF URL:", application.approvalPdf);
 
     await application.save();
 
+    console.log("💾 Application saved to database");
+
+    // Send email
     if (application.email) {
-      await sendMail({
-        to: application.email,
-        subject: "Your Application has been Approved",
-        html: `
-          <h2>Hello ${application.fullName},</h2>
-          <p>Your application has been <b>approved</b>.</p>
-          <p><b>Approval Number:</b> ${approvalNumber}</p>
+      try {
+        await sendMail({
+          to: application.email,
+          subject: "Your Application has been Approved",
+          html: `
+            <h2>Hello ${application.fullName},</h2>
+            <p>Your application has been <b>approved</b>.</p>
+            <p><b>Approval Number:</b> ${approvalNumber}</p>
+            <p>Download your approval PDF: <a href="${application.approvalPdf}">Click Here</a></p>
+            <p>You can check your status anytime using this approval number.</p>
 
-          <p>You can check your status anytime using this approval number.</p>
-
-          <br/>
-          <p>Regards,<br/>Express Logistics Team</p>
-        `,
-      });
+            <br/>
+            <p>Regards,<br/>Express Logistics Team</p>
+          `,
+        });
+        console.log("📧 Email sent successfully");
+      } catch (emailError) {
+        console.error("📧 Email error:", emailError);
+        // Don't fail the request if email fails
+      }
     }
 
     res.json({
@@ -80,9 +111,12 @@ export const approveApplication = async (req, res) => {
       message: "Application approved & PDF uploaded",
       data: application,
     });
+
+    console.log("✅ Response sent successfully");
+
   } catch (err) {
     console.error("❌ APPROVE ERROR:", err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 };
 
