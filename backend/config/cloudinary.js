@@ -20,6 +20,8 @@ const storage = new CloudinaryStorage({
       // Use application ID as filename
       return `approval_${req.params.id}_${Date.now()}`;
     },
+
+    flags: { "attachment": true }
   },
 });
 
@@ -39,6 +41,13 @@ export const uploadPdfToCloud = multer({
     cb(null, true);
   }
 });
+
+export const getViewablePdfUrl = (cloudinaryUrl) => {
+
+    if (!cloudinaryUrl) return null;
+
+    return cloudinaryUrl.replace('/upload/', '/upload/fl_attachment:false/');
+};
 
 // Export cloudinary instance for potential future use
 export default cloudinary;

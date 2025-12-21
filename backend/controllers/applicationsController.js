@@ -69,9 +69,17 @@ export const approveApplication = async (req, res) => {
     application.approvalNumber = approvalNumber;
     
     // Construct PDF URL
-    application.approvalPdf = req.file.path;
+     let pdfUrl = req.file.path;
+    
+    // Make PDF viewable in browser (not just downloadable)
+    if (pdfUrl.includes('/upload/')) {
+      pdfUrl = pdfUrl.replace('/upload/', '/upload/fl_attachment:false/');
+    }
+    
+    application.approvalPdf = pdfUrl;
 
-    console.log("🔗 PDF URL:", application.approvalPdf);
+    console.log("🔗 Original Cloudinary URL:", req.file.path);
+    console.log("🔗 Viewable PDF URL:", application.approvalPdf);
 
     await application.save();
 
