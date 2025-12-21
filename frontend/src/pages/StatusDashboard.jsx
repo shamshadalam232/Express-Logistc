@@ -26,14 +26,40 @@ export default function StatusDashboard() {
 
   if (!data) return null;
 
-  const handlePdfDownload = () => {
+ const handlePdfDownload = () => {
     if (data.approvalPdf) {
-      window.open(data.approvalPdf, '_blank');
+      let pdfUrl = data.approvalPdf;
+      
+      // Fix localhost URLs to production
+      if (pdfUrl.includes('localhost')) {
+        pdfUrl = pdfUrl.replace('http://localhost:5000', 'https://expresslogistic.shop');
+        pdfUrl = pdfUrl.replace('http://localhost:5173', 'https://expresslogistic.shop');
+      }
+      
+      // For mobile compatibility - use Google Docs Viewer or direct link
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // Option 1: Google Docs Viewer (works on all mobiles)
+        // window.open(`https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`, '_blank');
+        
+        // Option 2: Direct download with proper content-type
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.download = `Approval_${data.approvalNumber}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        // Desktop - open in new tab
+        window.open(pdfUrl, '_blank');
+      }
     } else {
       Swal.fire('Error', 'Approval PDF not available', 'error');
     }
   };
-
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-10">
