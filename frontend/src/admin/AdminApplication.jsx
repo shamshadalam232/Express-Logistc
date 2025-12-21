@@ -7,13 +7,18 @@ export default function AdminApplications() {
   const [activeId, setActiveId] = useState(null);
 
   // Fetch all applications
-  const loadData = async () => {
-    const res = await api.get("/admin/applications", {
-      headers: {
-        "admin-key": "12345",
-      },
-    });
-    setApplications(res.data.data);
+ const loadData = async () => {
+    try {
+      const res = await api.get("/admin/applications", {
+        headers: {
+          "admin-key": "12345",
+        },
+      });
+      setApplications(res.data.data);
+    } catch (err) {
+      console.error("Load error:", err);
+      alert("Failed to load applications");
+    }
   };
 
   useEffect(() => {
@@ -152,7 +157,7 @@ export default function AdminApplications() {
                   {/* Approved → show PDF */}
                   {app.status === "Approved" && app.approvalPdf && (
                     <a
-                      href={`${import.meta.env.VITE_API_URL}${app.approvalPdf}`}
+                      href={`${app.approvalPdf}`}
                       target="_blank"
                       className="block text-blue-600 underline text-sm"
                     >

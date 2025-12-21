@@ -26,6 +26,14 @@ export default function StatusDashboard() {
 
   if (!data) return null;
 
+  const handlePdfDownload = () => {
+    if (data.approvalPdf) {
+      window.open(data.approvalPdf, '_blank');
+    } else {
+      Swal.fire('Error', 'Approval PDF not available', 'error');
+    }
+  };
+
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-10">
@@ -116,9 +124,7 @@ export default function StatusDashboard() {
         </span>
 
         <a
-          onClick={() =>
-            window.location.href = `${import.meta.env.VITE_API_URL}${data.approvalPdf}`
-          }
+          onClick={handlePdfDownload}
           target="_blank"
           rel="noopener noreferrer"
           className="bg-yellow-500 hover:bg-yellow-600 text-black px-5 py-2 rounded font-semibold text-sm"
@@ -136,9 +142,7 @@ export default function StatusDashboard() {
 
         {/* PDF */}
         <a
-         onClick={() =>
-              window.location.href = `${import.meta.env.VITE_API_URL}${data.approvalPdf}`
-          }
+         onClick={handlePdfDownload}
           className="inline-block mt-6 bg-yellow-500 text-white px-5 py-2 rounded"
         >
           Download Approval Letter
