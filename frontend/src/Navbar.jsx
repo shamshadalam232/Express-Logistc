@@ -55,7 +55,7 @@ export default function Navbar() {
           {isAdminPage && (
             <li>
               <a 
-                href="https://mail.zoho.in/zm/#mail/folder/inbox" 
+                href="https://webmail.migadu.com/#/mailbox/INBOX" 
                 target="_blank"
                 className="hover:text-blue-300"
               >
@@ -81,7 +81,7 @@ export default function Navbar() {
             {isAdminPage && (
               <li>
                 <a 
-                  href="https://mail.zoho.in/zm/#mail/folder/inbox"
+                  href="https://webmail.migadu.com/#/mailbox/INBOX"
                   target="_blank"
                   onClick={() => setOpen(false)}
                 >
