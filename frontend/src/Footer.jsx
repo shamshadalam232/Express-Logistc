@@ -38,8 +38,8 @@ export default function Footer() {
         <div>
           <h2 className="font-semibold text-lg mb-3">Contact Us</h2>
           <ul className="space-y-2 text-gray-300">
-            <li>Email: shamshadalam@expresslogistic.shop</li>
-            <li>Phone: +91 9876- ----6</li>
+            <li>Email: valmo@valmologistic.info</li>
+            <li>Phone: +91 84348 05697</li>
             <li>Address: 36, 100 Feet Rd, opposite Marks & Spencer, Vivek Nagar, Chandra Reddy Layout, S T Bed Layout, Koramangala, Bengaluru, Karnataka,India</li>
           </ul>
         </div>
