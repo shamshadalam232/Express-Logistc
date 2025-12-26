@@ -12,7 +12,6 @@ const applicationSchema = new mongoose.Schema({
   status: { type: String, default: "Pending" }, // Admin changes
   createdAt: { type: Date, default: Date.now },
   approvalNumber: { type: String, default: null},
-  approvalPdf: { type: String}
 });
 
 export default mongoose.model("Application", applicationSchema);

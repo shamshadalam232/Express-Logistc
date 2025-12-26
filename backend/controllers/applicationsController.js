@@ -1,7 +1,6 @@
 import Application from "../models/applications.js";
 import { sendMail } from "../utils/sendMail.js";
-import path from "path";
-import fs from "fs";
+
 
 // POST : user apply
 export const applyApplications = async (req, res) => {
