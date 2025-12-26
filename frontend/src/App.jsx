@@ -12,6 +12,7 @@ import Footer from "./Footer.jsx"
 import AdminApplications from "./admin/AdminApplication.jsx";
 import AdminShipments from "./admin/AdminShipment.jsx";
 import StatusDashboard from "./pages/StatusDashboard.jsx";
+import WhatsAppFull from "./components/WhatshppFull.jsx";
 //import './App.css'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <WhatsAppFull />
     <Navbar onOpenJoin={() => setOpen(true)} />
       <Modal open={open} onClose={() => setOpen(false)}>
         <JoinForm onClose={() => setOpen(false)} />
