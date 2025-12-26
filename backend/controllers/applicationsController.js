@@ -1,6 +1,6 @@
 import Application from "../models/applications.js";
 import { sendMail } from "../utils/sendMail.js";
-
+import { getViewablePdfUrl } from "../config/cloudinary.js";
 
 // POST : user apply
 export const applyApplications = async (req, res) => {
@@ -41,84 +41,54 @@ export const approveApplication = async (req, res) => {
   try {
     const { id } = req.params;
 
-    console.log("🔍 Approve request received for ID:", id);
-    
-
-    const application = await Application.findById(id);
-    if (!application) {
-      return res.status(404).json({ message: "Application not found" });
-    }
-
     if (!req.file) {
-      console.log("❌ No file uploaded");
       return res.status(400).json({ message: "Approval PDF is required" });
     }
-
-    console.log("✅ File received:");
-    console.log("   - Filename:", req.file.filename);
-    console.log("   - Path:", req.file.path);
-    console.log("   - Size:", req.file.size);
-
-   
 
     const approvalNumber =
       "VAL-APP-" + Math.floor(100000 + Math.random() * 900000);
 
-    application.status = "Approved";
-    application.approvalNumber = approvalNumber;
-    
-    // Construct PDF URL
-     let pdfUrl = req.file.path;
-    
-    // Make PDF viewable in browser (not just downloadable)
-    if (pdfUrl.includes('/upload/')) {
-      pdfUrl = pdfUrl.replace('/upload/', '/upload/fl_attachment:false/');
-    }
-    
-    application.approvalPdf = pdfUrl;
+    const pdfUrl = getViewablePdfUrl(req.file.path);
 
-    console.log("🔗 Original Cloudinary URL:", req.file.path);
-    console.log("🔗 Viewable PDF URL:", application.approvalPdf);
-
-    await application.save();
-
-    console.log("💾 Application saved to database");
-
-    // Send email
-    if (application.email) {
-      try {
-        await sendMail({
-          to: application.email,
-          subject: "Your Application has been Approved",
-          html: `
-            <h2>Hello ${application.fullName},</h2>
-            <p>Your application has been <b>approved</b>.</p>
-            <p><b>Approval Number:</b> ${approvalNumber}</p>
-            
-            <p>You can check your status anytime using this approval number.</p>
-
-            <br/>
-            <p>Regards,<br/>Express Logistics Team</p>
-          `,
-        });
-        console.log("📧 Email sent successfully");
-      } catch (emailError) {
-        console.error("📧 Email error:", emailError);
-        // Don't fail the request if email fails
+    const updatedApplication = await Application.findByIdAndUpdate(
+      id,
+      {
+        status: "Approved",
+        approvalNumber,
+        approvalPdf: pdfUrl,
+      },
+      {
+        new: true,
+        runValidators: false, // 🔥 MOST IMPORTANT
       }
+    );
+
+    if (!updatedApplication) {
+      return res.status(404).json({ message: "Application not found" });
     }
 
-    res.json({
-      success: true,
-      message: "Application approved & PDF uploaded",
-      data: application,
-    });
+    // Email optional
+    if (updatedApplication.email) {
+      sendMail({
+        to: updatedApplication.email,
+        subject: "Application Approved",
+        html: `
+          <h2>Hello ${updatedApplication.fullName}</h2>
+          <p>Your application has been <b>approved</b>.</p>
+          <p><b>Approval Number:</b> ${approvalNumber}</p>
+        `,
+      }).catch(console.error);
+    }
 
-    console.log("✅ Response sent successfully");
+    return res.json({
+      success: true,
+      message: "Application approved successfully",
+      data: updatedApplication,
+    });
 
   } catch (err) {
     console.error("❌ APPROVE ERROR:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -129,11 +99,12 @@ export const checkApplicationStatus = async (req, res) => {
     const app = await Application.findOne({
       approvalNumber: approval,
       mobile: mobile,
-    });
+    }).lean();
 
     if (!app) return res.status(404).json({ message: "No Application Found" });
 
     res.json(app);
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

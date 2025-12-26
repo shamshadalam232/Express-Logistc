@@ -21,7 +21,8 @@ const storage = new CloudinaryStorage({
       return `approval_${req.params.id}_${Date.now()}`;
     },
 
-    flags: { "attachment": true }
+  flags: "attachment:false"
+
   },
 });
 
