@@ -55,7 +55,7 @@ export default function Navbar() {
           {isAdminPage && (
             <li>
               <a 
-                href="https://webmail.migadu.com" 
+                href="https://mail.hostinger.com/" 
                 target="_blank"
                 className="hover:text-blue-300"
               >
@@ -81,7 +81,7 @@ export default function Navbar() {
             {isAdminPage && (
               <li>
                 <a 
-                  href="https://webmail.migadu.com"
+                  href="https://mail.hostinger.com/"
                   target="_blank"
                   onClick={() => setOpen(false)}
                 >
