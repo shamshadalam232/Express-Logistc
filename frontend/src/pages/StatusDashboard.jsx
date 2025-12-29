@@ -26,40 +26,42 @@ export default function StatusDashboard() {
 
   if (!data) return null;
 
- const handlePdfDownload = () => {
+  const handlePdfDownload = () => {
     if (data.approvalPdf) {
       let pdfUrl = data.approvalPdf;
-      
+
       // Fix localhost URLs to production
-      if (pdfUrl.includes('localhost')) {
-        const cloudinaryMatch = pdfUrl.match(/(https:\/\/res\.cloudinary\.com\/[^\s]+)/);
+      if (pdfUrl.includes("localhost")) {
+        const cloudinaryMatch = pdfUrl.match(
+          /(https:\/\/res\.cloudinary\.com\/[^\s]+)/
+        );
         if (cloudinaryMatch) {
           pdfUrl = cloudinaryMatch[1];
         }
       }
-      
+
       // For mobile compatibility - use Google Docs Viewer or direct link
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      
+
       if (isMobile) {
         // Option 1: Google Docs Viewer (works on all mobiles)
         // window.open(`https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`, '_blank');
-        
+
         // Option 2: Direct download with proper content-type
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = pdfUrl;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
         link.download = `Approval_${data.approvalNumber}.pdf`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
       } else {
         // Desktop - open in new tab
-        window.open(pdfUrl, '_blank');
+        window.open(pdfUrl, "_blank");
       }
     } else {
-      Swal.fire('Error', 'Approval PDF not available', 'error');
+      Swal.fire("Error", "Approval PDF not available", "error");
     }
   };
 
@@ -78,12 +80,14 @@ export default function StatusDashboard() {
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-sm">
             <tbody>
-
               <Row label="Application No." value={data.approvalNumber} />
               <Row label="Document No." value={data.documentNo || "N/A"} />
 
               <Row label="Application Name" value={data.fullName} />
-              <Row label="Father / Husband Name" value={data.fatherName || "N/A"} />
+              <Row
+                label="Father / Husband Name"
+                value={data.fatherName || "N/A"}
+              />
 
               <Row label="Email" value={data.email} />
               <Row label="Mobile" value={data.mobile} />
@@ -118,59 +122,63 @@ export default function StatusDashboard() {
                   {data.location || "N/A"}
                 </td>
               </tr>
-
             </tbody>
           </table>
         </div>
 
         <div className="max-w-6xl mx-auto mt-10 px-4">
+          {/* Heading */}
+          <h2 className="text-center text-lg md:text-xl font-semibold mb-4">
+            Fashnear Technologies Private Limited Bank Details
+          </h2>
 
-      {/* Heading */}
-      <h2 className="text-center text-lg md:text-xl font-semibold mb-4">
-        Fashnear Technologies Private Limited Bank Details
-      </h2>
+          {/* Bank Table */}
+          <div className="overflow-x-auto border rounded-md">
+            <table className="w-full text-sm border-collapse">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="border p-3">Account Number</th>
+                  <th className="border p-3">IFSC Code</th>
+                  <th className="border p-3">Branch Name</th>
+                  <th className="border p-3">Bank Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border p-3">
+                    5876791340
+                  </td>
+                  <td className="border p-3">CBIN0283511</td>
+                  <td className="border p-3">Fashnear Technologies Private Limited</td>
+                  <td className="border p-3">Benglore City Branch</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-      {/* Bank Table */}
-      <div className="overflow-x-auto border rounded-md">
-        <table className="w-full text-sm border-collapse">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border p-3">Account Number</th>
-              <th className="border p-3">IFSC Code</th>
-              <th className="border p-3">Branch Name</th>
-              <th className="border p-3">Bank Name</th>
-            </tr>
-          </thead>
-          
-        </table>
-      </div>
+          {/* Approval Letter Section */}
+          <div className="mt-4 bg-[#1f2428] flex flex-col md:flex-row items-center justify-between px-4 py-3 rounded">
+            <span className="text-white font-medium mb-2 md:mb-0">
+              Approval Letter
+            </span>
 
-      {/* Approval Letter Section */}
-      <div className="mt-4 bg-[#1f2428] flex flex-col md:flex-row items-center justify-between px-4 py-3 rounded">
-        <span className="text-white font-medium mb-2 md:mb-0">
-          Approval Letter
-        </span>
-
-        <a
-          onClick={handlePdfDownload}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-yellow-500 hover:bg-yellow-600 text-black px-5 py-2 rounded font-semibold text-sm"
-        >
-          Approval Letter Download
-        </a>
-      </div>
-
-    </div>
-      
-
+            <a
+              onClick={handlePdfDownload}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-yellow-500 hover:bg-yellow-600 text-black px-5 py-2 rounded font-semibold text-sm"
+            >
+              Approval Letter Download
+            </a>
+          </div>
+        </div>
 
         {/* STEP BAR */}
         <StepProgress status={data.status} />
 
         {/* PDF */}
         <a
-         onClick={handlePdfDownload}
+          onClick={handlePdfDownload}
           className="inline-block mt-6 bg-yellow-500 text-white px-5 py-2 rounded"
         >
           Download Approval Letter
@@ -188,7 +196,6 @@ export default function StatusDashboard() {
   );
 }
 
-
 function Row({ label, value }) {
   return (
     <tr className="border-t">
@@ -197,4 +204,3 @@ function Row({ label, value }) {
     </tr>
   );
 }
-

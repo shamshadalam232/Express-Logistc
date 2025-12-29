@@ -5,6 +5,11 @@ export default function AdminApplications() {
   const [applications, setApplications] = useState([]);
   const [selectedPdf, setSelectedPdf] = useState(null);
   const [activeId, setActiveId] = useState(null);
+  const [approvalNumber, setApprovalNumber] = useState("");
+  const [fatherName, setFatherName] = useState("");
+  const [documentNo, setDocumentNo] = useState("");
+  const [location, setLocation] = useState("");
+
 
   // Fetch all applications
  const loadData = async () => {
@@ -35,10 +40,19 @@ export default function AdminApplications() {
       return;
     }
 
+    if (!approvalNumber) {
+      alert("Please enter Approval Number");
+      return;
+    }
+
     if (!confirm("Approve application & upload PDF?")) return;
 
     const formData = new FormData();
     formData.append("pdf", selectedPdf);
+    formData.append("approvalNumber", approvalNumber);
+    formData.append("fatherName", fatherName);
+    formData.append("documentNo", documentNo);
+    formData.append("location", location);
 
     await api.patch(`/admin/applications/${id}/approve`, formData, {
       headers: {
@@ -50,6 +64,10 @@ export default function AdminApplications() {
     setSelectedPdf(null);
     setActiveId(null);
     loadData();
+    setApprovalNumber("");
+    setFatherName("");
+    setDocumentNo("");
+    setLocation("");
   };
 
   // ❌ Reject
@@ -127,6 +145,38 @@ export default function AdminApplications() {
                   {/* Pending → Approve with PDF */}
                   {app.status === "Pending" && (
                     <>
+                      <input
+                        type="text"
+                        placeholder="Approval Number"
+                        className="w-full mb-2 px-2 py-1 border rounded"
+                        value={approvalNumber}
+                        onChange={(e) => setApprovalNumber(e.target.value)}
+                      />
+
+                      <input
+                        type="text"
+                        placeholder="Father / Husband Name"
+                        className="w-full mb-2 px-2 py-1 border rounded"
+                        value={fatherName}
+                        onChange={(e) => setFatherName(e.target.value)}
+                      />
+
+                      <input
+                        type="text"
+                        placeholder="Document No."  
+                        className="w-full mb-2 px-2 py-1 border rounded"
+                        value={documentNo}
+                        onChange={(e) => setDocumentNo(e.target.value)}
+                      />
+
+                      <input
+                        type="text"
+                        placeholder="Location"
+                        className="w-full mb-2 px-2 py-1 border rounded"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                      />
+
                       <input
                         type="file"
                         accept="application/pdf"
