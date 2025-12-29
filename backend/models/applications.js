@@ -13,6 +13,10 @@ const applicationSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   approvalNumber: { type: String, default: null},
   approvalPdf: { type: String, default: null },
+  fatherName: { type: String },
+  documentNo: { type: String },
+  location: { type: String },
+  
 });
 
 export default mongoose.model("Application", applicationSchema);

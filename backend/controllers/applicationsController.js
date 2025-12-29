@@ -1,6 +1,6 @@
 import Application from "../models/applications.js";
 import { sendMail } from "../utils/sendMail.js";
-import { getViewablePdfUrl } from "../config/cloudinary.js";
+
 
 // POST : user apply
 export const applyApplications = async (req, res) => {
@@ -45,10 +45,9 @@ export const approveApplication = async (req, res) => {
       return res.status(400).json({ message: "Approval PDF is required" });
     }
 
-    const approvalNumber =
-      "VAL-APP-" + Math.floor(100000 + Math.random() * 900000);
+    const { approvalNumber, fatherName, documentNo, location } = req.body;
 
-    const pdfUrl = getViewablePdfUrl(req.file.path);
+    const pdfUrl = req.file.path; // Cloudinary URL
 
     const updatedApplication = await Application.findByIdAndUpdate(
       id,
@@ -56,6 +55,9 @@ export const approveApplication = async (req, res) => {
         status: "Approved",
         approvalNumber,
         approvalPdf: pdfUrl,
+        fatherName,
+        documentNo,
+        location,
       },
       {
         new: true,
