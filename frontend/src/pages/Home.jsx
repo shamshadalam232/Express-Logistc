@@ -7,11 +7,15 @@ export default function Home() {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <div className="w-full bg-gradient-to-r from-[#0A3C6E] to-[#003D73] text-white py-16 px-4">
+      <div className="w-full bg-gradient-to-r from-[#ee03e6] to-[#003D73] text-white py-16 px-4">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-4xl md:text-4xl font-semibold mb-10 mt-10">
-            A trusted partner in simplifying logistics
+          <h1 className="text-4xl md:text-4xl font-semibold mb-5 mt-10">
+            Reliable Logistics Solutions Tailored for Your Business
           </h1>
+          <p className="text-xl md:text-xl font-semibold  ">
+            Experience seamless shipping with our cutting-edge technology and
+            dedicated support.
+          </p>
 
           <button
             className="bg-white text-blue-900 font-medium px-6 py-2 rounded mt-2 hover:bg-gray-400 transition"
@@ -32,7 +36,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="w-full bg-sky-950 text-white py-7">
+      <div className="w-full bg-[#040a13] text-white py-7">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-2xl font-semibold mt-5 px-3">
             We ensure seamless logistics with reliability you can trust.
@@ -43,29 +47,29 @@ export default function Home() {
             real value to your business.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-10">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
             {/* box 1 */}
             <div className="bg-[#E5F5FF] text-[#022B52] p-6 rounded-xl text-center shadow h-40">
-              <h2 className="text-2xl font-semibold mt-5">9 Lac+</h2>
-              <p className="text-sm mt-1">Orders shipped per day</p>
+              <h2 className="text-2xl font-semibold ">Thousands of orders handled regularly</h2>
+              
             </div>
 
             {/* Box 2 */}
             <div className="bg-[#E5F5FF] text-[#022B52] p-6 rounded-xl text-center shadow h-40">
-              <h2 className="text-2xl font-semibold mt-5">30k+</h2>
+              <h2 className="text-2xl font-semibold">Large and growing delivery team</h2>
               <p className="text-sm mt-1">Delivery executives</p>
             </div>
 
             {/* Box 3 */}
             <div className="bg-[#E5F5FF] text-[#022B52] p-6 rounded-xl text-center shadow h-40">
-              <h2 className="text-2xl font-semibold mt-5">3k+</h2>
+              <h2 className="text-2xl font-semibold mt-5">1k+</h2>
               <p className="text-sm mt-1">Partners</p>
             </div>
 
             {/* Box 4 */}
             <div className="bg-[#E5F5FF] text-[#022B52] p-6 rounded-xl text-center shadow h-40">
-              <h2 className="text-2xl font-semibold mt-5">6k+</h2>
-              <p className="text-sm mt-1">PIN codes served</p>
+              <h2 className="text-2xl font-semibold">Coverage across multiple service areas</h2>
+              
             </div>
           </div>
         </div>
@@ -124,7 +128,7 @@ export default function Home() {
            <div className="bg-white-200 p-6 rounded-xl shadow h-85">
               <div className="text-black">
                 <h1 className="text-center text-2xl font-semibold mt-3 px-3 mb-3">
-                  Become a part of our delivery team
+                  Work With Fashner
                 </h1>
                 <li>
                   Start offering pick-up and delivery services across India with

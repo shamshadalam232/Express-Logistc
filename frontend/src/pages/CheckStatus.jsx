@@ -72,7 +72,7 @@ export default function CheckStatus() {
 
       <div>
         <img src="/bus.jpg"
-        className="w-full rounded-2xl object-cover h-85"
+        className="w-full rounded-2xl object-cover h-45"
         />
       </div>
     </>

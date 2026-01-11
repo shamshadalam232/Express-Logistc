@@ -44,6 +44,8 @@ export default function About() {
         in every corner of the country.
       </p>
 
+      <p>Fashner is an independent logistics platform and is not affiliated with any third-party logistics brands.</p>
+
     </div>
   );
 }
