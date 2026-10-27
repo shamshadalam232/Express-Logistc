@@ -10,12 +10,17 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = [
+  "https://express-logistic-yx6x.vercel.app",
+];
+
 app.use(
   cors({
-    origin: true,
+    origin: allowedOrigins,
     credentials: true,
   })
 );
+
 
 app.use(express.json());
 
