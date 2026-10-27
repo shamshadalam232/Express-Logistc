@@ -23,9 +23,19 @@ export default function AdminApplications() {
 
       setApplications(res.data.data);
     } catch (err) {
-      console.error("Load error:", err);
-      alert("Failed to load applications");
-    }
+  console.error("Load error message:", err.message);
+  console.error("Error code:", err.code);
+  console.error("HTTP status:", err.response?.status);
+  console.error("Server response:", err.response?.data);
+  console.error("Request URL:", err.config?.url);
+  console.error("Base URL:", err.config?.baseURL);
+
+  alert(
+    err.response?.data?.message ||
+    err.message ||
+    "Failed to load applications"
+  );
+}
   };
 
   useEffect(() => {
