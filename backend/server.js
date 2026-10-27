@@ -1,7 +1,7 @@
-
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
@@ -12,25 +12,24 @@ const app = express();
 
 const allowedOrigins = [
   "https://express-logistic-yx6x.vercel.app",
-  "https://express-logistc.vercel.app", // agar ye bhi use ho raha hai
   "http://localhost:5173",
 ];
+
 app.use(
   cors({
     origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "Admin-Key"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Admin-Key",
+    ],
   })
 );
 
-
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
-
-// Connect to MongoDB
-connectDB();
 
 // API routes
 app.use("/api/user", userRoutes);
@@ -44,5 +43,20 @@ app.get("/", (req, res) => {
   });
 });
 
-// Vercel will handle the server
-export default app;
+// Start server after MongoDB connects
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    const PORT = process.env.PORT || 5000;
+
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Server startup failed:", error);
+    process.exit(1);
+  }
+};
+
+startServer();
