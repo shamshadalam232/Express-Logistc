@@ -11,8 +11,8 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
-  "https://express-logistc-1.onrender.com/",
-  "http://localhost:5173",
+  "https://express-logistc-yx6x.vercel.app",
+  
 ];
 
 app.use(
