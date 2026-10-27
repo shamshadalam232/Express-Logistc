@@ -12,8 +12,9 @@ const app = express();
 
 const allowedOrigins = [
   "https://express-logistic-yx6x.vercel.app",
+  "https://express-logistc.vercel.app", // agar ye bhi use ho raha hai
+  "http://localhost:5173",
 ];
-
 app.use(
   cors({
     origin: allowedOrigins,
