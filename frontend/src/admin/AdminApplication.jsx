@@ -200,7 +200,7 @@ export default function AdminApplications() {
   );
 
   // Reusable application actions
-  const ApplicationActions = ({ app }) => (
+  const renderApplicationActions = ( app ) => (
     <div className="space-y-3">
       {app.status === "Pending" && (
         <div className="space-y-3 rounded-xl bg-gray-50 border border-gray-200 p-3 sm:p-4">
@@ -387,7 +387,7 @@ export default function AdminApplications() {
                   </div>
 
                   <div className="border-t border-gray-200 p-3 sm:p-4">
-                    <ApplicationActions app={app} />
+                    {renderApplicationActions(app)}
                   </div>
                 </div>
               ))}
@@ -464,7 +464,7 @@ export default function AdminApplications() {
                         </td>
 
                         <td className="px-4 py-4 min-w-[280px]">
-                          <ApplicationActions app={app} />
+                          {renderApplicationActions(app)}
                         </td>
                       </tr>
                     ))}

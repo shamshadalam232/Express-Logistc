@@ -26,44 +26,58 @@ export default function StatusDashboard() {
 
   if (!data) return null;
 
-  const handlePdfDownload = () => {
-    if (data.approvalPdf) {
-      let pdfUrl = data.approvalPdf;
 
-      // Fix localhost URLs to production
-      if (pdfUrl.includes("localhost")) {
-        const cloudinaryMatch = pdfUrl.match(
-          /(https:\/\/res\.cloudinary\.com\/[^\s]+)/
-        );
-        if (cloudinaryMatch) {
-          pdfUrl = cloudinaryMatch[1];
-        }
-      }
+const handlePdfDownload = async () => {
+  if (!data.approvalPdf) {
+    Swal.fire("Error", "Approval PDF not available", "error");
+    return;
+  }
 
-      // For mobile compatibility - use Google Docs Viewer or direct link
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  try {
+    console.log("PDF URL:", data.approvalPdf);
+    const response = await fetch(data.approvalPdf);
 
-      if (isMobile) {
-        // Option 1: Google Docs Viewer (works on all mobiles)
-        // window.open(`https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`, '_blank');
-
-        // Option 2: Direct download with proper content-type
-        const link = document.createElement("a");
-        link.href = pdfUrl;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.download = `Approval_${data.approvalNumber}.pdf`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        // Desktop - open in new tab
-        window.open(pdfUrl, "_blank");
-      }
-    } else {
-      Swal.fire("Error", "Approval PDF not available", "error");
+    if (!response.ok) {
+      throw new Error("Failed to download PDF");
     }
-  };
+
+  const blob = await response.blob();
+
+console.log("Response status:", response.status);
+console.log("Content-Type:", response.headers.get("content-type"));
+console.log("Blob type:", blob.type);
+console.log("Blob size:", blob.size);
+
+if (blob.size === 0) {
+  throw new Error("Downloaded file is empty");
+}
+
+
+    const pdfBlob = new Blob([blob], {
+      type: "application/pdf",
+    });
+
+    const downloadUrl = URL.createObjectURL(pdfBlob);
+
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = `Approval_${data.approvalNumber}.pdf`;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    URL.revokeObjectURL(downloadUrl);
+  } catch (error) {
+    console.error("PDF download error:", error);
+
+    Swal.fire(
+      "Download Failed",
+      "PDF download nahi ho payi. Please try again.",
+      "error"
+    );
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-10">
