@@ -4,6 +4,7 @@ import { api } from "../lib/axios";
 
 export default function AdminApplications() {
   const [applications, setApplications] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedPdf, setSelectedPdf] = useState(null);
   const [activeId, setActiveId] = useState(null);
   const [approvalNumber, setApprovalNumber] = useState("");
@@ -14,6 +15,7 @@ export default function AdminApplications() {
 
   // Fetch all applications
   const loadData = async () => {
+    setIsLoading(true)
     try {
       const res = await api.get("/admin/applications", {
         headers: {
@@ -35,6 +37,8 @@ export default function AdminApplications() {
     err.message ||
     "Failed to load applications"
   );
+} finally {
+  setIsLoading(false)
 }
   };
 
@@ -332,6 +336,30 @@ export default function AdminApplications() {
       </button>
     </div>
   );
+
+  // Show loading screen while applications are fetching
+if (isLoading) {
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="bg-white rounded-2xl shadow-md p-8 text-center max-w-sm w-full">
+
+        {/* Animated Spinner */}
+        <div className="mx-auto mb-5 h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-green-600"></div>
+
+        <h2 className="text-lg font-semibold text-gray-800">
+          Loading Applications...
+        </h2>
+
+        <p className="mt-2 text-sm text-gray-500">
+          Please wait while we fetch the latest application data.
+        </p>
+
+      </div>
+    </div>
+  );
+}
+
+
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20 sm:pt-24 pb-8">
