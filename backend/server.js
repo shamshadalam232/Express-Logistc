@@ -12,7 +12,7 @@ const app = express();
 
 const allowedOrigins = [
   "https://express-logistc-yx6x.vercel.app",
-  "https://www.fashner.info",
+  "https://www.valmo.info",
   "http://localhost:5173"
 ];
 
