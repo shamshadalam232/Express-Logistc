@@ -3,7 +3,7 @@ import whatsappIcon from "/unnamed.webp";
 export default function WhatsAppFull() {
     return (
         <a
-            href="https://wa.me/918434805697"
+            href="https://wa.me/916289192373"
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-6 right-6 z-50"

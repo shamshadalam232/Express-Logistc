@@ -43,7 +43,6 @@ export default function Footer() {
             <li>Address: 36, 100 Feet Rd, opposite Marks & Spencer, Vivek Nagar, Chandra Reddy Layout, S T Bed Layout, Koramangala, Bengaluru, Karnataka,India</li>
           </ul>
         </div>
-
       </div>
 
       {/* Bottom Bar */}
