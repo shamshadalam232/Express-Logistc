@@ -28,7 +28,7 @@ export default function Home() {
           </Modal>
 
           <div className="mt-10">
-            <img src="/moto.jpg"
+            <img src="/moto(.jpg"
               alt="Delivery Rider"
               className="w-full rounded-2xl object-cover h-85"
             />

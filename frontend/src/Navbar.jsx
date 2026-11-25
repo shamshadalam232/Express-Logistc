@@ -21,7 +21,7 @@ export default function Navbar() {
             alt="Logo"
           />
           <span className="text-white text-2xl font-semibold hidden md:block">
-            FASHNER
+            VALMO
           </span>
         </a>
 
