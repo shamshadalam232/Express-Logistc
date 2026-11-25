@@ -40,7 +40,7 @@ export default function Footer() {
           <ul className="space-y-2 text-gray-300">
             <li>Email: support@meeshopartner.co.in</li>
             <li>Phone: +91 7586851964</li>
-            <li>Address: 36, 100 Feet Rd, opposite Marks & Spencer, Vivek Nagar, Chandra Reddy Layout, S T Bed Layout, Koramangala, Bengaluru, Karnataka,India</li>
+            <li>Address:11th Floor, Wing - E, Helios Business Park, Kadubeesanahalli Village, Varthur Hobli, Outer Ring Road, Bellandur, Bangalore, Bangalore South, Karnataka, India, 560103</li>
           </ul>
         </div>
       </div>
